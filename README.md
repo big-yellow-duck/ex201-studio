@@ -1,12 +1,48 @@
 # EX201 Studio
 
-A native Linux workspace for the EX201 Bluetooth audio DSP: precise controls,
-interactive EQ curves, visual lessons, and recoverable tuning sessions.
+This started as part of a speaker build. The EX201 board had the EQ and DSP
+controls I wanted, but I couldn't get past the Android app's login screen.
+I wanted to tune the board from Linux and understand what each setting did.
 
-Built entirely with Flutter and Dart. Bluetooth uses Linux BlueZ directly;
-the application runs without Python, a browser, a web server, or a vendor account.
+EX201 Studio is the result: a Flutter app that talks to the board over
+Bluetooth, with visual EQ controls, explanations, presets and backups.
+Everything runs locally, and no vendor account is needed.
+
+**Made with OpenAI Codex.** Codex did much of the protocol investigation,
+implementation and testing, including the move from the first Python/web
+version to Flutter and Dart. I supplied the hardware and product information,
+helped with the physical power-cycle checks, and tried the controls on the board.
 
 ![EX201 Studio equalizer — labelled demo workspace](screenshots/equalizer.png)
+
+## How we got the Bluetooth controls working
+
+The starting point was the JavaScript bundled with the manufacturer's
+[YOULI Android client](https://likeyou168.cn/YOULI/download-center.html).
+Codex inspected it to find the BP10 command format, Bluetooth services and
+parameter controls. We then checked those findings against the actual EX201.
+
+The useful discovery was how to get a reply. The board exposes an `AB00`
+control service and an `AB01` read/write characteristic. Notifications alone
+weren't giving us the responses we needed: after writing a command, we had
+to wait briefly and **explicitly read AB01**. That gave us a reliable way to
+ask for the firmware, effect catalogue and parameter blocks.
+
+From there, we worked through the parameter scales and write commands one
+control at a time. Some settings are individual words; others, such as the
+DRC thresholds, are written as a group. Changing one path therefore means
+preserving the other values in that group. Each test read the whole block
+back and restored the previous settings afterwards. We also checked that
+the board's save command survived a physical power cycle.
+
+That research became the first Python/Bleak controller. This version carries
+the protocol over to Dart and talks to Linux BlueZ directly. The cloud login
+and local Bluetooth controls turned out to be separate, so the desktop app
+can work without the vendor login.
+
+The main pieces are [message framing](lib/domain/protocol.dart),
+[Bluetooth transport](lib/infrastructure/bluez_transport.dart), and the
+[controller and readback checks](lib/application/controller.dart).
 
 ## Install
 
@@ -24,7 +60,7 @@ the display, graphics acceleration and access to the host BlueZ service.
 It has no network or general home-directory access. Import/export uses the
 desktop file chooser; backups stay in the application’s data directory.
 
-## A tuning session
+## Using it
 
 1. Connect the board’s **BLE control device**, then read its settings.
 2. Export a preset before changing your tuning.
@@ -45,7 +81,7 @@ Close an existing instance before launching the demo action. The amber demo
 banner marks a separate in-memory transport; it never connects to Bluetooth.
 Demo backups are kept separately from real-board backups.
 
-## Features
+## What it can do
 
 - All **19 discovered DSP blocks and 401 typed controls**, including six ten-band EQs.
 - Draggable EQ handles, exact numeric values, selected-band and combined curves,
