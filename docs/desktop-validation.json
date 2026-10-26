@@ -1,0 +1,9 @@
+{
+  "app_id": "io.github.big_yellow_duck.EX201Studio",
+  "test": "Final installed release in isolated X11 display and private D-Bus session; demo transport only",
+  "initial_visible_windows": 1,
+  "after_second_launch_visible_windows": 1,
+  "same_window_reused": true,
+  "second_launch_exit_code": 0,
+  "passed": true
+}

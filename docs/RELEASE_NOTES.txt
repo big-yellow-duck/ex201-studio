@@ -1,0 +1,22 @@
+EX201 Studio 1.0.0 brings the complete EX201 controller to a native Flutter and Dart desktop application.
+
+- All 19 discovered DSP blocks and 401 typed controls.
+- Draggable EQ curves, exact numeric controls and a nine-filter learning explorer.
+- Dynamics, timing, gain, polarity and spatial-effect illustrations.
+- Master volume/mute, three board preset slots, JSON preset files and automatic recovery history.
+- Staged effect edits, full-block readback, and a separate Store on board action.
+- An explicitly labelled demo mode that never connects to Bluetooth hardware.
+- A single-instance desktop window and connection cleanup that preserves a BLE link opened by another client.
+
+Download EX201-Studio-1.0.0-x86_64.flatpak and open it with your software manager, or install it with:
+
+    flatpak install --user EX201-Studio-1.0.0-x86_64.flatpak
+    flatpak run io.github.big_yellow_duck.EX201Studio
+
+The bundle targets Linux x86_64 and uses the Freedesktop 26.08 runtime from Flathub. No Python, browser, vendor account, network permission or general home-directory permission is required. A Flathub app listing is separate from this downloadable bundle.
+
+Verification: 1,436 reference parameter plans, 15 automated tests, clean static analysis, successful Linux CI build, native desktop/demo checks and physical EX201 read/write/restore checks. The installed Flatpak also read all 401 controls through its sandboxed BlueZ connection. Raw device/session records are excluded from this public repository.
+
+Hardware verification used EX201 / seller EX201MAX, BP10_B1, firmware 0.3.1 and library 2.30.0. EX202, other firmware profiles and other operating systems have not been hardware-tested. Input selection and renaming are unavailable when the known firmware queries return no status. TWS, firmware updates and factory reset are excluded. Charts are teaching models rather than acoustic measurements.
+
+Close earlier preview/controller instances before opening this release. Board preset files remain compatible with the original Python/web implementation when device identity, firmware and effect layouts match.

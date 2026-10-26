@@ -54,7 +54,8 @@
     "release_bundle_readback_passed": true,
     "runtime": "org.freedesktop.Platform/26.08",
     "bundle_sha256": "15b8426824d42c36ccf73ec1ff6f167ce8f9e3ec60c321a1b47bdbeeae7c058a",
-    "subsequent_owner_tuning_preserved": true
+    "subsequent_owner_tuning_preserved": true,
+    "final_bundle_sha256": "5d8050daf96c719c786634d36a288b3dfaa56f7276a6bb0cee6bc842cccfdb9a"
   },
   "original_reference_source_unchanged": true,
   "limitations": [
@@ -67,5 +68,14 @@
     "shared_connection_is_not_disconnected": true,
     "owned_connection_is_released": true,
     "regression_tests": "test/transport_test.dart"
+  },
+  "desktop_runtime": {
+    "app_id": "io.github.big_yellow_duck.EX201Studio",
+    "test": "Final installed release in isolated X11 display and private D-Bus session; demo transport only",
+    "initial_visible_windows": 1,
+    "after_second_launch_visible_windows": 1,
+    "same_window_reused": true,
+    "second_launch_exit_code": 0,
+    "passed": true
   }
 }
