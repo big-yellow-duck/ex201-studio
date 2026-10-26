@@ -1,0 +1,5 @@
+* text=auto
+assets/fonts/*.ttf binary
+screenshots/*.png binary
+# Preserve the upstream font license verbatim, including its whitespace.
+assets/fonts/OFL.txt whitespace=-blank-at-eol

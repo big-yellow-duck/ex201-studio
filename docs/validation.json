@@ -1,0 +1,71 @@
+{
+  "at": "2026-10-26T17:00:37.252219+00:00",
+  "version": "1.0.0",
+  "target": "Linux x86_64 / EX201 BP10_B1 firmware 0.3.1 library 2.30.0",
+  "flutter": "3.47.8",
+  "dart": "3.13.7",
+  "reference_parameter_plans": 1436,
+  "automated_tests": {
+    "passed": 15,
+    "physical_test_skipped_by_default": 1,
+    "all_19_editors_rendered": true,
+    "responsive_widths_px": [
+      1440,
+      1100,
+      820,
+      600,
+      390
+    ],
+    "draft_learning_examples_leave_board_values_unchanged": true
+  },
+  "physical_dart_validation": {
+    "passed": true,
+    "bypassed_effect_cuts": [
+      {
+        "type": "EQ",
+        "control": "preamp",
+        "cut_db": 0.5
+      },
+      {
+        "type": "DRC",
+        "control": "threshold",
+        "cut_db": 0.1
+      },
+      {
+        "type": "gain",
+        "control": "gain",
+        "cut_db": 0.5
+      }
+    ],
+    "whole_block_readback": true,
+    "original_19_blocks_restored": true,
+    "volume_unchanged": true,
+    "preset_unchanged": true,
+    "flash_saved_during_tests": false
+  },
+  "packaged_bluez_access": {
+    "passed": true,
+    "effects": 19,
+    "controls": 401,
+    "network_permission": false,
+    "general_home_permission": false,
+    "app_id": "io.github.big_yellow_duck.EX201Studio",
+    "branch": "stable",
+    "release_bundle_readback_passed": true,
+    "runtime": "org.freedesktop.Platform/26.08",
+    "bundle_sha256": "15b8426824d42c36ccf73ec1ff6f167ce8f9e3ec60c321a1b47bdbeeae7c058a",
+    "subsequent_owner_tuning_preserved": true
+  },
+  "original_reference_source_unchanged": true,
+  "limitations": [
+    "Chart models have not been acoustically measured.",
+    "EX202, other firmware profiles and other operating systems have not been hardware-tested.",
+    "Input selection and renaming are unavailable when known firmware queries return no status.",
+    "TWS, factory reset and firmware update are excluded."
+  ],
+  "transport_cleanup": {
+    "shared_connection_is_not_disconnected": true,
+    "owned_connection_is_released": true,
+    "regression_tests": "test/transport_test.dart"
+  }
+}

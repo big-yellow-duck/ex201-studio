@@ -1,0 +1,365 @@
+{
+  "version": 1,
+  "title": "A beginner’s guide to EX201 Studio",
+  "intro": "Start with one effect and a small change. Read the board, export a backup, preview your idea, then apply it and compare at a similar listening level.",
+  "quickstart": [
+    {
+      "title": "Read & back up",
+      "text": "Connect EX201 and choose Read from board. Export preset keeps a file on your computer. The green connection badge describes the Bluetooth control link; audio still needs its own playback connection."
+    },
+    {
+      "title": "Explore a draft",
+      "text": "Select Music pre EQ, open the filter explorer and move its sliders. Copy an example to a band draft to edit the table. Exploring and copying do not send settings to the board."
+    },
+    {
+      "title": "Apply & listen",
+      "text": "Use Apply changes to send your draft to the running board. Enable the EQ block in your draft too if you want to hear it. Compare with bypass at a similar volume; louder can easily seem better."
+    },
+    {
+      "title": "Keep your tuning",
+      "text": "Apply changes the current running settings. Store on board saves them across power-off in the selected board preset. Export preset also keeps a separate, named copy on your computer."
+    }
+  ],
+  "workflow": [
+    {
+      "action": "Explore / copy an example",
+      "effect": "Changes the local preview or draft only. No board write."
+    },
+    {
+      "action": "Edit a field / toggle Enabled / flat starting point",
+      "effect": "Stages an editor draft. The board stays unchanged until Apply changes."
+    },
+    {
+      "action": "Apply changes",
+      "effect": "Sends the editor draft to the running board and checks the entire returned block. Does not save to flash."
+    },
+    {
+      "action": "Volume / mute / load preset",
+      "effect": "Changes the board immediately. Loading a preset replaces the displayed tuning with that slot’s settings."
+    },
+    {
+      "action": "Import / restore backup",
+      "effect": "Applies the saved DSP parameters to the current slot. Store on board is still needed for persistence."
+    },
+    {
+      "action": "Export / create backup",
+      "effect": "Saves a copy on this computer. Create full backup reads the board first; Export uses the last read values."
+    },
+    {
+      "action": "Store on board",
+      "effect": "Saves the current DSP parameters in the selected board preset so they survive power-off."
+    }
+  ],
+  "basics": [
+    {
+      "term": "Frequency · Hz",
+      "text": "Where a change happens. 1 kHz means 1,000 Hz. Bass is toward the left of a frequency chart and treble toward the right. The chart uses a logarithmic scale: each doubling in frequency occupies the same width."
+    },
+    {
+      "term": "Gain · dB",
+      "text": "How much a level changes. 0 dB leaves it unchanged, negative values cut it, and positive values boost it. About +6 dB doubles signal amplitude; it does not mean twice the perceived loudness."
+    },
+    {
+      "term": "Q",
+      "text": "For bell, band-pass and notch filters, higher Q gives a narrower affected range. For low/high-pass filters it changes resonance around the cutoff. On shelves it changes the transition shape. First-order filters do not use Q in this preview."
+    },
+    {
+      "term": "Headroom",
+      "text": "Space left before the digital signal clips. EQ boosts can use it up. The graph estimates the highest boost from enabled draft bands; a negative preamp can offset that boost. It cannot account for the source level or other DSP blocks."
+    },
+    {
+      "term": "Bypass / enabled",
+      "text": "A bypassed block keeps its settings but does not process audio. An EQ band must be on and its parent EQ must also be enabled. Every effect switch in this Flutter editor is staged until Apply changes."
+    },
+    {
+      "term": "Threshold / ratio",
+      "text": "Threshold is the level where dynamics processing changes behavior. A compressor at 4:1 turns 8 dB above its threshold into 2 dB above it in an ideal steady-state example. A higher expansion ratio instead pushes quiet material farther down."
+    },
+    {
+      "term": "Attack / release · ms",
+      "text": "Timing controls, in milliseconds. Compressor attack describes how quickly reduction develops; release describes its recovery. A noise gate’s attack opens it and its release closes it. The timing picture is an illustration, not a measured firmware envelope."
+    },
+    {
+      "term": "Dry / wet",
+      "text": "Dry is the original signal; wet is the processed contribution. The exciter has separate controls for both. Two percentages do not have to add to 100, and combining them can change the output level."
+    }
+  ],
+  "filters": [
+    {
+      "name": "Peaking / bell",
+      "short": "Shape one region",
+      "what": "Boosts or cuts a region around its center frequency, leaving distant frequencies mostly unchanged.",
+      "use": "Try a small cut in a boomy or harsh region. Lower Q makes a broad tonal change; higher Q targets a narrow region.",
+      "frequency": "Center of the bell",
+      "q": "Higher Q = narrower bell",
+      "gain": true,
+      "usesQ": true,
+      "example": {
+        "frequency": 1000,
+        "q": 1,
+        "gain": -3
+      }
+    },
+    {
+      "name": "Low shelf",
+      "short": "Adjust the bass side",
+      "what": "Raises or lowers frequencies below a transition region. It settles at a level instead of continuing to roll off.",
+      "use": "Adjust the overall bass balance. A shelf cut is gentler than removing the bass with a high-pass filter.",
+      "frequency": "Middle of the transition",
+      "q": "Changes transition shape; high Q may add resonance",
+      "gain": true,
+      "usesQ": true,
+      "example": {
+        "frequency": 200,
+        "q": 0.707,
+        "gain": -3
+      }
+    },
+    {
+      "name": "High shelf",
+      "short": "Adjust the treble side",
+      "what": "Raises or lowers frequencies above a transition region, then settles at the selected gain.",
+      "use": "Adjust overall brightness with a small change.",
+      "frequency": "Middle of the transition",
+      "q": "Changes transition shape; high Q may add resonance",
+      "gain": true,
+      "usesQ": true,
+      "example": {
+        "frequency": 3000,
+        "q": 0.707,
+        "gain": -3
+      }
+    },
+    {
+      "name": "Low pass",
+      "short": "Keep lows, reduce highs",
+      "what": "Passes low frequencies and progressively reduces frequencies above the cutoff. This preview uses a second-order filter, approaching 12 dB per octave away from the cutoff.",
+      "use": "Explore separating a low-frequency path. A speaker crossover also needs driver measurements and suitable wiring; this preview alone is not a crossover design.",
+      "frequency": "Cutoff / transition region",
+      "q": "Controls cutoff resonance; about 0.707 is non-peaking in this model",
+      "gain": false,
+      "usesQ": true,
+      "example": {
+        "frequency": 2000,
+        "q": 0.707,
+        "gain": 0
+      }
+    },
+    {
+      "name": "High pass",
+      "short": "Keep highs, reduce lows",
+      "what": "Passes high frequencies and progressively reduces frequencies below the cutoff. This preview uses a second-order filter, approaching 12 dB per octave away from the cutoff.",
+      "use": "Explore reducing rumble or the low-frequency content sent to an output.",
+      "frequency": "Cutoff / transition region",
+      "q": "Controls cutoff resonance; about 0.707 is non-peaking in this model",
+      "gain": false,
+      "usesQ": true,
+      "example": {
+        "frequency": 100,
+        "q": 0.707,
+        "gain": 0
+      }
+    },
+    {
+      "name": "Band pass",
+      "short": "Keep one region",
+      "what": "Passes a region near the center and reduces frequencies on both sides. This is different from a bell, which leaves distant frequencies alone.",
+      "use": "Explore an isolated frequency region. Several enabled band-pass filters in a series EQ can remove most of the music.",
+      "frequency": "Center of the passed region",
+      "q": "Higher Q = narrower passed region",
+      "gain": false,
+      "usesQ": true,
+      "example": {
+        "frequency": 1000,
+        "q": 1,
+        "gain": 0
+      }
+    },
+    {
+      "name": "Notch",
+      "short": "Reject one region",
+      "what": "Creates a deep rejection around one frequency and leaves distant frequencies mostly unchanged.",
+      "use": "Target a known narrow tone. A modest bell cut is often easier to tune by ear.",
+      "frequency": "Frequency to reject",
+      "q": "Higher Q = narrower notch",
+      "gain": false,
+      "usesQ": true,
+      "example": {
+        "frequency": 1000,
+        "q": 3,
+        "gain": 0
+      }
+    },
+    {
+      "name": "Low pass · first order",
+      "short": "Gentle high roll-off",
+      "what": "Passes lows and reduces highs with a gentler slope, approaching 6 dB per octave away from the cutoff.",
+      "use": "Compare a gentle roll-off with the steeper low-pass option.",
+      "frequency": "Cutoff, about −3 dB in this model",
+      "q": "Not used by a first-order filter",
+      "gain": false,
+      "usesQ": false,
+      "example": {
+        "frequency": 2000,
+        "q": 0.707,
+        "gain": 0
+      }
+    },
+    {
+      "name": "High pass · first order",
+      "short": "Gentle low roll-off",
+      "what": "Passes highs and reduces lows with a gentler slope, approaching 6 dB per octave away from the cutoff.",
+      "use": "Compare a gentle roll-off with the steeper high-pass option.",
+      "frequency": "Cutoff, about −3 dB in this model",
+      "q": "Not used by a first-order filter",
+      "gain": false,
+      "usesQ": false,
+      "example": {
+        "frequency": 100,
+        "q": 0.707,
+        "gain": 0
+      }
+    }
+  ],
+  "effects": {
+    "4": {
+      "title": "Parametric EQ",
+      "what": "Changes the balance of frequencies. Ten filters combine into the curve shown below; their gains add in dB in this calculated model.",
+      "try": "Start with one bell filter and a small cut. Check that the band and the whole EQ are enabled before listening.",
+      "watch": "Positive boosts may need negative preamp gain. The response is calculated at an assumed 48 kHz and has not been acoustically measured on this board."
+    },
+    "2": {
+      "title": "Dynamics / compressor / limiter",
+      "what": "Reduces the difference between loud and quiet parts by turning down material above a threshold. Multiband modes process separate frequency regions.",
+      "try": "Explore the 4:1 draft example to see the bend in the curve, then compare slower and faster timing. The example is a lesson, not a speaker protection preset.",
+      "watch": "Inactive paths retain their values. Full-band uses path 4; two-band uses paths 1–2; three-band uses paths 1–3. Combined modes also use path 4. High ratios approach limiting, but detector behavior, overshoot and driver protection are not measured."
+    },
+    "5": {
+      "title": "Noise suppression",
+      "what": "Acts like a downward expander or gate: it turns already-quiet material down further. It is useful for gaps between sounds, rather than removing hiss from loud music.",
+      "try": "Explore a low threshold and modest ratio. Raise the threshold gradually only if the background noise remains audible between tracks.",
+      "watch": "Too high a threshold can remove quiet notes or word endings. The transfer curve illustrates an ideal expander; the board’s exact knee and timing have not been measured."
+    },
+    "12": {
+      "title": "3D spatial",
+      "what": "Changes spatial cues to create a wider or more spacious impression.",
+      "try": "Compare a low intensity with bypass using a familiar stereo track.",
+      "watch": "The picture is conceptual. It does not measure speaker positions or reveal the proprietary processing. Strong settings can change tonal balance or mono compatibility."
+    },
+    "13": {
+      "title": "Virtual bass",
+      "what": "Uses harmonic processing to suggest bass weight that a small speaker may not reproduce directly. It is different from simply boosting the bass with EQ.",
+      "try": "Start with low intensity and compare at a similar overall volume. Try enhanced mode separately so you can hear its contribution.",
+      "watch": "The harmonic picture explains the idea; it is not the measured spectrum or exact harmonic recipe of this firmware. The cutoff and intensity are tuning controls, not a guarantee of deeper physical bass."
+    },
+    "23": {
+      "title": "Classic virtual bass",
+      "what": "An alternative virtual-bass algorithm with cutoff and intensity controls.",
+      "try": "Compare it with the other virtual-bass block one at a time.",
+      "watch": "Its internal algorithm is not documented here. The harmonic picture is conceptual; enabling several bass processors can add level or distortion."
+    },
+    "15": {
+      "title": "Gain & mute",
+      "what": "Changes every frequency in this path by the same amount. Mute silences the path when this block is enabled.",
+      "try": "Use input gain to balance sources and output gain to trim a path. A negative gain leaves more headroom.",
+      "watch": "0 dB is unity gain, not silence. A bypassed gain block ignores its gain and mute settings. Master volume and path mute are separate controls."
+    },
+    "20": {
+      "title": "Phase / polarity",
+      "what": "Flips the sign of the waveform when set to Inverted: positive becomes negative and negative becomes positive.",
+      "try": "Use a polarity comparison when combining outputs or speakers, then listen or measure their summed response.",
+      "watch": "Polarity inversion is not a time delay or an adjustable phase angle. A single isolated speaker may sound much the same, while the sum with another speaker can change greatly."
+    },
+    "25": {
+      "title": "Harmonic exciter",
+      "what": "Adds a processed harmonic contribution to change presence or brightness. Dry controls the original contribution; wet controls the excited contribution.",
+      "try": "Keep the original signal present and introduce a small wet contribution. Compare with bypass at a similar level.",
+      "watch": "The diagram illustrates blending, not a measured harmonic spectrum. The two mix controls are independent; a large wet contribution may add harshness or level."
+    },
+    "28": {
+      "title": "Stereo widening",
+      "what": "Changes stereo spatial cues. Stereo shaping is an extra processing option exposed by the firmware.",
+      "try": "Compare bypass, widening, then shaping separately with a stereo track.",
+      "watch": "The picture is conceptual. Shaping’s exact algorithm is undocumented. Check mono playback as well as stereo when judging the result."
+    }
+  },
+  "fields": {
+    "enabled": "The whole block must be enabled to hear its settings. This switch is staged until Apply changes.",
+    "mode": "Chooses which dynamics paths are active. The path diagram below follows this draft selection.",
+    "filter": "Chooses the crossover family and slope. First, second and fourth order correspond nominally to 6, 12 and 24 dB/octave; the exact summed response is not plotted.",
+    "q_low": "Controls low-pass transition resonance in Q-controlled crossover mode; fixed-family modes may ignore this stored value.",
+    "q_high": "Controls high-pass transition resonance in Q-controlled crossover mode; fixed-family modes may ignore this stored value.",
+    "crossover_low": "Lower frequency split. Keep it below the upper split even when using full-band mode.",
+    "crossover_high": "Upper frequency split, used to define the additional region in three-band modes. Keep it above the lower split.",
+    "threshold": "Compression starts above this level. A more negative number processes quieter material too. These are internal digital levels, not sound pressure levels.",
+    "ratio": "4:1 means 4 dB above threshold becomes 1 dB above it in the ideal compressor model. 1:1 leaves the dynamics unchanged.",
+    "attack": "How quickly gain reduction develops after a loud event. Shorter settings catch transients more strongly; longer settings let more initial impact through.",
+    "release": "How quickly reduction recovers as the signal quietens. Very short recovery may sound rough; long recovery may hold the level down between events.",
+    "pregain": "Level trim associated with this dynamics path. Its exact placement relative to the detector is not established; it is excluded from the threshold/ratio picture.",
+    "threshold_db": "Material below this level is suppressed. Higher (less negative) values can also remove quiet musical detail.",
+    "attack_ms": "Gate opening time as the signal becomes louder. The exact firmware envelope is not measured.",
+    "release_ms": "Gate closing/recovery time as the signal becomes quiet. Longer values can make fades less abrupt.",
+    "intensity": "Amount of the selected effect, from 0 to 100. This is a control percentage, not a dB value or a measured change in width.",
+    "cutoff_hz": "Frequency region used by this algorithm. It is not a brick-wall speaker crossover.",
+    "enhanced": "Selects the firmware’s enhanced bass variant. Compare it separately from intensity changes.",
+    "mute": "Silences this path when the gain block is enabled. It is independent of master-volume mute.",
+    "gain_db": "0 dB preserves the level; negative cuts; positive boosts. Positive gain uses headroom.",
+    "inverted": "Normal keeps waveform polarity; Inverted flips its sign. This adds no adjustable time delay.",
+    "dry": "Amount of original signal kept in the exciter mix. Independent of the wet percentage.",
+    "wet": "Amount of the excited contribution. Increasing this can change both timbre and level.",
+    "shaping": "Enables an additional stereo-processing option. Its exact algorithm is undocumented; compare by listening."
+  },
+  "routing": "Music controls describe the main music processing group. Left and Right EQ allow channel-specific tuning. DACX is a separate mixed output in the seller’s documentation; it is not automatically a subwoofer crossover. Gain controls trim named input/output paths. The catalogue identifies blocks but does not establish the complete internal processing order or which physical connector you are listening to.",
+  "troubleshooting": [
+    {
+      "title": "The curve changes but I hear nothing",
+      "text": "Check whether you applied the changes, turned that band on, and enabled the whole EQ in your draft. Check the output path: DACX changes may not affect the main left/right outputs. The filter explorer remains local until you copy it and apply the editor draft."
+    },
+    {
+      "title": "The sound became thin or disappeared",
+      "text": "Check for band-pass, high-pass and low-pass filters. They remove whole frequency regions even when Gain reads 0 dB. Several filters in the same EQ combine in series. Bypass the relevant block to compare."
+    },
+    {
+      "title": "There is no sound",
+      "text": "Check source playback, the separate Bluetooth audio connection, master volume and enabled gain-block mute flags. Check for heavy gain cuts or filters on the output in use. Read from board to see the actual settings."
+    },
+    {
+      "title": "My settings disappear after power-off",
+      "text": "Apply changes running parameters; Store on board makes the current DSP tuning persistent. Confirm the selected board preset before storing. Keep an exported file for recovery."
+    },
+    {
+      "title": "DRC settings seem to do nothing",
+      "text": "Check block enable and the selected processing mode. Inactive paths are stored but unused. A threshold above the signal level will not compress it. There is no live audio level meter in this suite."
+    },
+    {
+      "title": "I get distortion or pumping",
+      "text": "Compare with bypass at a similar volume. Reduce positive EQ/gain boosts or wet/intensity amounts. With dynamics, compare longer release and a gentler ratio; change one control at a time."
+    },
+    {
+      "title": "Input selection or Bluetooth name is unavailable",
+      "text": "The connected EX201 firmware returns no value for the known remote queries. Those cards explain the limitation; this suite cannot currently switch the input or rename it through that interface."
+    }
+  ],
+  "sources": [
+    {
+      "title": "W3C Audio EQ Cookbook · preview filter equations",
+      "url": "https://www.w3.org/TR/audio-eq-cookbook/"
+    },
+    {
+      "title": "Allen & Heath · dynamics control terminology",
+      "url": "https://support.allen-heath.com/hc/en-gb/articles/39862260219025-Processing"
+    },
+    {
+      "title": "Audacity · noise gate principles",
+      "url": "https://manual.audacityteam.org/man/noise_gate.html"
+    },
+    {
+      "title": "Manufacturer · EX201MAX manual",
+      "url": "https://manual.likeyou168.cn/EX201MAX/"
+    },
+    {
+      "title": "Manufacturer · YOULI client used to identify controls",
+      "url": "https://likeyou168.cn/YOULI/download-center.html"
+    }
+  ]
+}

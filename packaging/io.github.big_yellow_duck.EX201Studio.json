@@ -1,0 +1,83 @@
+{
+  "app-id": "io.github.big_yellow_duck.EX201Studio",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "26.08",
+  "sdk": "org.freedesktop.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.llvm22"
+  ],
+  "command": "ex201-studio",
+  "finish-args": [
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--share=ipc",
+    "--device=dri",
+    "--system-talk-name=org.bluez",
+    "--env=GTK_USE_PORTAL=1",
+    "--env=GTK_MODULES="
+  ],
+  "build-options": {
+    "append-path": "/usr/lib/sdk/llvm22/bin",
+    "env": {
+      "CI": "true",
+      "FLUTTER_SUPPRESS_ANALYTICS": "true",
+      "GIT_CONFIG_COUNT": "1",
+      "GIT_CONFIG_KEY_0": "safe.directory",
+      "GIT_CONFIG_VALUE_0": "/run/build/ex201-studio/toolchain/flutter"
+    }
+  },
+  "modules": [
+    {
+      "name": "ex201-studio",
+      "buildsystem": "simple",
+      "build-commands": [
+        "env PUB_CACHE=$PWD/toolchain/pub-cache toolchain/flutter/bin/cache/dart-sdk/bin/dart pub --directory toolchain/flutter/packages/flutter_tools get --offline",
+        "env PUB_CACHE=$PWD/toolchain/pub-cache toolchain/flutter/bin/flutter pub get --offline",
+        "env PUB_CACHE=$PWD/toolchain/pub-cache toolchain/flutter/bin/flutter build linux --release --no-pub",
+        "install -d /app/lib/ex201-studio",
+        "cp -a build/linux/x64/release/bundle/. /app/lib/ex201-studio/",
+        "install -Dm755 packaging/ex201-studio /app/bin/ex201-studio",
+        "install -Dm644 packaging/io.github.big_yellow_duck.EX201Studio.desktop /app/share/applications/io.github.big_yellow_duck.EX201Studio.desktop",
+        "install -Dm644 packaging/io.github.big_yellow_duck.EX201Studio.metainfo.xml /app/share/metainfo/io.github.big_yellow_duck.EX201Studio.metainfo.xml",
+        "install -Dm644 packaging/io.github.big_yellow_duck.EX201Studio.svg /app/share/icons/hicolor/scalable/apps/io.github.big_yellow_duck.EX201Studio.svg",
+        "install -Dm644 LICENSE /app/share/licenses/io.github.big_yellow_duck.EX201Studio/LICENSE",
+        "install -Dm644 assets/fonts/OFL.txt /app/share/licenses/io.github.big_yellow_duck.EX201Studio/Manrope-OFL.txt",
+        "install -Dm644 README.txt /app/share/doc/io.github.big_yellow_duck.EX201Studio/README.txt"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": "..",
+          "skip": [
+            ".git",
+            ".dart_tool",
+            ".flatpak-builder",
+            ".flatpak-deps",
+            "build",
+            "dist",
+            "screenshots",
+            "reference-state.json",
+            "linux/flutter/ephemeral",
+            ".idea",
+            "ex201_studio.iml"
+          ]
+        },
+        {
+          "type": "archive",
+          "path": "../.flatpak-deps/flutter-sdk.tar.gz",
+          "dest": "toolchain/flutter",
+          "strip-components": 0,
+          "sha256": "fdb9f1f1c7a81e09622316b2aad1d17cdb72a18bfd872b7eb4c4b663b3aeaeb7"
+        },
+        {
+          "type": "archive",
+          "path": "../.flatpak-deps/pub-cache.tar.gz",
+          "dest": "toolchain/pub-cache",
+          "strip-components": 0,
+          "sha256": "0cca41178ed446fbfdc8d5ea7ec1ad3dbf21e732bb83b2a5175fa80c1256316d"
+        }
+      ]
+    }
+  ],
+  "branch": "stable"
+}

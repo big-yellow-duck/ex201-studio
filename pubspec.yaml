@@ -1,0 +1,28 @@
+name: ex201_studio
+description: Native Bluetooth DSP control and visual learning tools for EX201 boards.
+publish_to: none
+version: 1.0.0+1
+environment:
+  sdk: '>=3.13.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  bluez: 0.9.0
+  file_selector: ^1.1.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/effect-schemas.json
+    - assets/help-content.json
+    - assets/demo-board.json
+    - assets/fonts/OFL.txt
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope.ttf

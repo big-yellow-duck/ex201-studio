@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.big_yellow_duck.EX201Studio</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>EX201 Studio</name>
+  <summary>Tune and understand your EX201 Bluetooth audio DSP</summary>
+  <developer id="io.github.big_yellow_duck"><name>big-yellow-duck</name></developer>
+  <description>
+    <p>EX201 Studio gives you a clear view of the audio processing inside your EX201 board. Explore a filter, stage a change, and apply it when you are ready to listen.</p>
+    <ul>
+      <li>Edit all 19 supported DSP effects, including six ten-band parametric equalizers.</li>
+      <li>Use interactive curves and visual lessons for filters, dynamics, timing and gain.</li>
+      <li>Control master volume, mute and three board preset slots.</li>
+      <li>Export presets and recover previous sessions from automatic backups.</li>
+      <li>Explore a clearly labelled demo workspace without Bluetooth hardware.</li>
+    </ul>
+    <p>The controller checks applied parameter blocks by reading them back from the board. The charts are teaching models rather than acoustic measurements. A supported EX201 Bluetooth control interface is required for hardware control. No vendor account is needed.</p>
+  </description>
+  <url type="homepage">https://github.com/big-yellow-duck/ex201-studio</url>
+  <url type="bugtracker">https://github.com/big-yellow-duck/ex201-studio/issues</url>
+  <launchable type="desktop-id">io.github.big_yellow_duck.EX201Studio.desktop</launchable>
+  <categories><category>Audio</category><category>AudioVideo</category></categories>
+  <content_rating type="oars-1.1"/>
+  <supports><control>pointing</control><control>keyboard</control><control>touch</control></supports>
+  <releases>
+    <release version="1.0.0" date="2026-10-27">
+      <description><p>First native Flutter release, with a complete Dart controller, visual learning tools, verified parameter writes, preset files and recovery history.</p></description>
+    </release>
+  </releases>
+</component>

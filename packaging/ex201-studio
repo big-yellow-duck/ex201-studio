@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /app/lib/ex201-studio/ex201_studio "$@"

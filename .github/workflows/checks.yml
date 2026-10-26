@@ -1,0 +1,37 @@
+name: Linux checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Install Linux desktop prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev libegl1-mesa-dev appstream desktop-file-utils
+      - name: Install the pinned Flutter SDK
+        run: |
+          EX201_SDK="$RUNNER_TEMP/flutter"
+          git init "$EX201_SDK"
+          git -C "$EX201_SDK" remote add origin https://github.com/flutter/flutter.git
+          git -C "$EX201_SDK" fetch --depth 1 origin 737ba8f885dc774b53b442759999a312c9461e4e
+          git -C "$EX201_SDK" checkout --detach FETCH_HEAD
+          git -C "$EX201_SDK" tag 3.47.8
+          "$EX201_SDK/bin/flutter" --disable-analytics
+          "$EX201_SDK/bin/flutter" config --enable-linux-desktop --no-enable-android --no-enable-ios --no-enable-web
+          printf '%s\n' "$EX201_SDK/bin" >> "$GITHUB_PATH"
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test --reporter expanded
+      - run: flutter build linux --release --no-pub
+      - name: Check desktop metadata
+        run: |
+          desktop-file-validate packaging/io.github.big_yellow_duck.EX201Studio.desktop
+          appstreamcli validate --no-net packaging/io.github.big_yellow_duck.EX201Studio.metainfo.xml

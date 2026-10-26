@@ -1,0 +1,18 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=EX201 Studio
+GenericName=Bluetooth DSP controller
+Comment=Shape and understand the sound of your EX201 board
+Exec=ex201-studio
+Icon=io.github.big_yellow_duck.EX201Studio
+Terminal=false
+Categories=AudioVideo;Audio;
+Keywords=EX201;DSP;Bluetooth;EQ;PEQ;Equalizer;
+StartupNotify=true
+StartupWMClass=io.github.big_yellow_duck.EX201Studio
+Actions=Demo;
+
+[Desktop Action Demo]
+Name=Explore demo workspace
+Exec=ex201-studio --demo
