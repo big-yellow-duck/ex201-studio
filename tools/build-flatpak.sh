@@ -8,4 +8,4 @@ flatpak-builder --user --force-clean --disable-rofiles-fuse \
   --repo=dist/repo build/flatpak packaging/io.github.big_yellow_duck.EX201Studio.json
 flatpak build-bundle --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo \
   dist/repo dist/EX201-Studio-1.0.0-x86_64.flatpak io.github.big_yellow_duck.EX201Studio stable
-sha256sum dist/EX201-Studio-1.0.0-x86_64.flatpak > dist/SHA256SUMS
+(cd dist && sha256sum EX201-Studio-1.0.0-x86_64.flatpak > SHA256SUMS)
